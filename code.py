@@ -6,9 +6,15 @@ from pyspark.sql import SparkSession
 
 
 def getSameStockCodeRecords(dataframe, columnName, itemCode):
-    data = dataframe.select('InvoiceNo', columnName)\
+    """ returns the [InvoiceNo and columnName] of items that their 'stockCode' is the same as 'itemCode'
+
+    :param dataframe: whole structured dataframe of products information
+    :param columnName: column that we want to compare, in this data it is 'stockCode'
+    :param itemCode: value of stockCode that we are looking for
+    """
+    return dataframe.select('InvoiceNo', columnName)\
                  .where((dataframe['stockCode'] == itemCode))
-    return data
+    
 
 def getIntersectRecords(firstRecords, secondRecords):
     return firstRecords.select('InvoiceNo')\
